@@ -1,6 +1,7 @@
 # scalarmul-in-snark
 Related code to the research paper "Fast elliptic curve scalar multiplications in SN(T)ARK circuits".
-*Authors: Liam Eagen (@Liam-Eagen), Youssef El Housni (@yelhousni), Simon Masson (@simonmasson) and Thomas Piellard (@ThomasPiellard).*
+
+*Authors: [Liam Eagen](https://github.com/Liam-Eagen), [Youssef El Housni](https://github.com/yelhousni), [Simon Masson](https://github.com/simonmasson) and [Thomas Piellard](https://github.com/ThomasPiellard).*
 
 ## organization
 - `sage/` contains SageMath scripts to check the formulas presented in the paper.
