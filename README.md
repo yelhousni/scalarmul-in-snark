@@ -5,4 +5,4 @@ Related code to the research paper "Fast elliptic curve scalar multiplications i
 
 ## organization
 - `sage/` contains SageMath scripts to check the formulas presented in the paper.
-- `go/` contains the SNARK circuits written in gnark framework.
+- `go/` contains the SNARK circuits written in gnark framework, and lattice/eisenstein reductions in Go.
