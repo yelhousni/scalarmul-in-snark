@@ -1,4 +1,4 @@
-package circuits
+package eisenstein
 
 import (
 	"math/big"

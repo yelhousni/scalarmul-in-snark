@@ -20,6 +20,7 @@ import (
 	"github.com/consensys/gnark/constraint/solver"
 	"github.com/consensys/gnark/std/math/emulated"
 	"github.com/consensys/gnark/std/math/emulated/emparams"
+	"github.com/yelhousni/scalarmul-in-snark/go/eisenstein"
 )
 
 func init() {
@@ -340,14 +341,14 @@ func halfGCDEisensteinSigns(mod *big.Int, inputs, outputs []*big.Int) error {
 		}
 		glvBasis := new(ecc.Lattice)
 		ecc.PrecomputeLattice(field, inputs[1], glvBasis)
-		r := ComplexNumber{
+		r := eisenstein.ComplexNumber{
 			A0: &glvBasis.V1[0],
 			A1: &glvBasis.V1[1],
 		}
 		sp := ecc.SplitScalar(inputs[0], glvBasis)
 		// in-circuit we check that Q - [s]P = 0 or equivalently Q + [-s]P = 0
 		// so here we return -s instead of s.
-		s := ComplexNumber{
+		s := eisenstein.ComplexNumber{
 			A0: &sp[0],
 			A1: &sp[1],
 		}
@@ -357,7 +358,7 @@ func halfGCDEisensteinSigns(mod *big.Int, inputs, outputs []*big.Int) error {
 		outputs[1].SetUint64(0)
 		outputs[2].SetUint64(0)
 		outputs[3].SetUint64(0)
-		res := HalfGCD(&r, &s)
+		res := eisenstein.HalfGCD(&r, &s)
 
 		if res[0].A0.Sign() == -1 {
 			outputs[0].SetUint64(1)
@@ -385,19 +386,19 @@ func halfGCDEisenstein(mod *big.Int, inputs []*big.Int, outputs []*big.Int) erro
 		}
 		glvBasis := new(ecc.Lattice)
 		ecc.PrecomputeLattice(field, inputs[1], glvBasis)
-		r := ComplexNumber{
+		r := eisenstein.ComplexNumber{
 			A0: &glvBasis.V1[0],
 			A1: &glvBasis.V1[1],
 		}
 		sp := ecc.SplitScalar(inputs[0], glvBasis)
 		// in-circuit we check that Q - [s]P = 0 or equivalently Q + [-s]P = 0
 		// so here we return -s instead of s.
-		s := ComplexNumber{
+		s := eisenstein.ComplexNumber{
 			A0: &sp[0],
 			A1: &sp[1],
 		}
 		s.Neg(&s)
-		res := HalfGCD(&r, &s)
+		res := eisenstein.HalfGCD(&r, &s)
 		outputs[0].Set(res[0].A0)
 		outputs[1].Set(res[0].A1)
 		outputs[2].Set(res[1].A0)
